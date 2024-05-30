@@ -1,1 +1,2 @@
 # Cardiac-Arrest-Predictor-
+El aprendizaje computacional abarca enfoques analíticos para la exploración de hipótesis, impulsados por software que imple- menta estos métodos en diversos escenarios. Las aplicaciones de estas técnicas pueden ser diversas, dependiendo del contexto en el que se evalúe su efectividad. En este escenario particular, la investigación se centra en determinar la viabilidad de utilizar métodos de aprendizaje no supervisado en el ámbito de la medicina y las posibles implicaciones que esto podría tener para su estudio.
