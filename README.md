@@ -1,87 +1,94 @@
-# Anemia Level Prediction in Children: Machine Learning Classification Analysis
+# Heart Attack Prediction: Unsupervised Learning Clustering Analysis
 
 ## Project Overview
 
-This project applies supervised machine learning techniques to predict anemia severity levels in children using demographic, socioeconomic, and clinical features. The study demonstrates the application of computational learning methods in healthcare, specifically for early anemia detection and risk assessment.
+This project explores the application of unsupervised machine learning techniques for heart attack risk assessment and pattern discovery in cardiac health data. Using clustering algorithms, the study identifies hidden patterns and patient groupings without prior labeled data, demonstrating the potential of unsupervised learning in cardiovascular medicine.
 
 ## Objective
 
-Develop and compare classification models to predict anemia levels in pediatric populations, enabling healthcare professionals to identify at-risk children based on readily available demographic and clinical indicators.
+Investigate the feasibility of unsupervised learning methods in medical contexts, specifically for discovering natural groupings in heart attack risk factors and exploring emergent relationships in cardiovascular health data.
 
 ## Dataset & Preprocessing
 
-### Data Characteristics
-- **Total Records**: 9,856 observations
-- **Training Set**: 7,392 samples (75%)
-- **Test Set**: 2,464 samples (25%)
-- **Target Variable**: Anemia levels (4 classes: Not anemic, Mild, Moderate, Severe)
+### Data Source
+- **Origin**: Kaggle heart attack dataset
+- **Features**: 14 clinical and demographic variables
+- **Target Variable**: Heart attack occurrence (binary)
+- **Data Quality**: Minimal preprocessing required (only 1 duplicate record)
 
-### Feature Engineering
-- **Age Groups**: Converted to interval means
-- **Residence Type**: Binary encoding (Urban=1, Rural=0)
-- **Education Level**: Mapped to years of education required
-- **Wealth Index**: Ordinal encoding (0=Poorest, 4=Richest)
-- **Clinical Variables**: Standardized Yes/No responses to binary
-- **Class Balancing**: Applied RandomOverSampler for improved distribution
+### Key Features
+- **age**: Patient age
+- **sex**: Gender 
+- **cp**: Chest pain type
+- **trestbps**: Resting blood pressure
+- **chol**: Cholesterol levels
+- **fbs**: Fasting blood sugar
+- **restecg**: Resting ECG results
+- **thalach**: Maximum heart rate achieved
+- **exang**: Exercise-induced angina
+- **oldpeak**: ST depression induced by exercise
+- **slope**: Peak exercise ST segment slope
+- **ca**: Number of major vessels colored by fluoroscopy
+- **thal**: Thalassemia type
 
-### Data Cleaning
-- Removed records with missing values using `drop.na()`
-- Eliminated irrelevant features (marital status, breastfeeding timing)
-- Converted all features to numerical format (int64/float64)
+### Preprocessing Steps
+- **Data Splitting**: 70% training, 30% testing
+- **Class Balancing**: Applied RandomOverSampler for uniform target distribution
+- **Feature Selection**: Used 3 key variables (age, thalach, oldpeak) for visualization
+- **Correlation Analysis**: Confirmed minimal linear dependence between variables
 
-## Machine Learning Models
+## Unsupervised Learning Algorithms
 
-### 1. Support Vector Classification (SVC)
-- **Algorithm**: Finds optimal hyperplane maximizing class margin
-- **Kernel**: Handles non-linear data mapping
-- **Performance**: 92% precision, recall, and F1-score
-- **Error Analysis**: 61 false positives, 9 false negatives
+### 1. K-Means Clustering
+- **Algorithm**: Partitions data into k clusters by minimizing within-cluster sum of squares
+- **Distance Metric**: Euclidean distance to centroids
+- **Cluster Selection**: Elbow method determined optimal k=2 clusters
+- **Implementation**: Scikit-learn KMeans
 
-### 2. K-Nearest Neighbors (KNN)  
-- **Algorithm**: Classifies based on similarity to K nearest neighbors
-- **Approach**: Groups similar data points for classification
-- **Performance**: 92% precision, recall, and F1-score
-- **Error Analysis**: 71 false positives, 38 false negatives
+### 2. Mean-Shift Clustering
+- **Algorithm**: Non-parametric technique finding density maxima in feature space
+- **Advantage**: Automatically determines number of clusters and centroids
+- **Results**: Identified 2 natural clusters in the data
+- **Implementation**: Scikit-learn MeanShift
 
-### 3. Random Forest Classifier
-- **Algorithm**: Ensemble method with multiple decision trees
-- **Optimization**: RandomizedSearchCV for hyperparameter tuning
-- **Best Parameters**: n_estimators=100
-- **Performance**: 95% precision, recall, and F1-score
-- **Error Analysis**: 58 false positives, 2 false negatives
+## Methodology
 
-## Results Summary
+### Cluster Optimization
+- **Elbow Method**: Systematic evaluation of cluster numbers for K-means
+- **Automatic Selection**: Mean-Shift self-determined optimal cluster count
+- **Visualization**: 3D scatter plots for cluster interpretation
+- **Validation**: Cross-comparison between both algorithms
 
-| Model | Precision | Recall | F1-Score | Support |
-|-------|-----------|--------|----------|---------|
-| SVC | 0.92 | 0.92 | 0.92 | 2,464 |
-| KNN | 0.92 | 0.92 | 0.92 | 2,464 |
-| **Random Forest** | **0.95** | **0.95** | **0.95** | **2,464** |
+### Exploratory Analysis
+- **Correlation Matrix**: Identified feature independence
+- **Target Distribution**: Analyzed heart attack occurrence patterns
+- **Feature Combinations**: Visualized variable relationships and cluster separability
 
-## Key Features
+## Results & Findings
 
-- **Correlation Analysis**: Identified minimal linear dependence between predictors
-- **Multi-class Classification**: 4-level anemia severity prediction
-- **Model Comparison**: Comprehensive evaluation of three ML algorithms  
-- **Hyperparameter Optimization**: Grid search for optimal model configuration
-- **Clinical Validation**: Confusion matrices for detailed error analysis
-- **Class Distribution Analysis**: Histogram and probability plots
+### Clustering Outcomes
+- **Convergent Results**: Both algorithms identified 2 distinct patient clusters
+- **Cluster Characteristics**: Groups showed similar risk factor patterns
+- **Data Complexity**: Dataset presented challenging separability
+- **Validation**: Consistent clustering across different algorithms suggests meaningful patterns
 
-## Clinical Applications
-
-- Early anemia screening in pediatric populations
-- Risk stratification based on demographic factors
-- Healthcare resource allocation optimization  
-- Preventive care program targeting
-- Public health surveillance support
+### Key Insights
+- **Patient Segmentation**: Natural groupings exist in heart attack risk profiles
+- **Risk Stratification**: Clusters may represent different risk categories
+- **Feature Importance**: Age, maximum heart rate, and ST depression are key clustering variables
+- **Pattern Discovery**: Unsupervised approach revealed hidden data structures
 
 ## Technical Implementation
 
+### Tools & Libraries
 - **Language**: Python
-- **Key Libraries**: scikit-learn, pandas, numpy
-- **Evaluation Metrics**: Precision, Recall, F1-score, Confusion Matrix
-- **Validation**: Train-test split with comprehensive model diagnostics
+- **Clustering**: scikit-learn (KMeans, MeanShift)
+- **Data Processing**: pandas, numpy
+- **Visualization**: matplotlib, seaborn
+- **Sampling**: imblearn (RandomOverSampler)
 
-## Model Performance Insights
-
-The Random Forest Classifier achieved the highest performance (95% accuracy) due to its ensemble approach and ability to handle complex feature interactions. While this creates a "black box" model with limited interpretability, the superior predictive capability makes it valuable for clinical decision support systems.
+### Evaluation Methods
+- **Visual Assessment**: 3D cluster plots
+- **Elbow Analysis**: Optimal cluster determination
+- **Cross-Algorithm Validation**: Consistency between methods
+- **Correlation Analysis**: Feature relationship mapping
